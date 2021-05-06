@@ -1,0 +1,9 @@
+UART_Task.c:14:6:UART1_Rec_Task	4	static
+UART_Task.c:20:6:UART2_Rec_Task	16	static
+UART_Task.c:57:6:UART3_Rec_Task	4	static
+UART_Task.c:63:6:UART1_Trn_Task	16	static
+UART_Task.c:115:6:UART2_Trn_Task	16	static
+UART_Task.c:141:6:UART3_Trn_Task	16	static
+UART_Task.c:195:6:UART1_Trn_On	4	static
+UART_Task.c:207:6:UART2_Trn_On	4	static
+UART_Task.c:215:6:UART3_Trn_On	8	static
