@@ -325,6 +325,8 @@ void TIM2_IRQHandler(void)
 	temp &= 0x02;
 	if( temp != 0 )
 	{
+		// Reset timeout count.
+		speed_sample_to = 0;
 		// Check received count.
 		if( speed_sample_cnt < SPEED_SAMPLE_CNT )
 		{

@@ -9,6 +9,7 @@
 #include "UART_Task.h"
 #include "GPIO_Task.h"
 #include "Buzzer_Task.h"
+#include "Speed_Task.h"
 
 // Timer tick task.
 void Timer_Tick( void )
@@ -26,6 +27,25 @@ void Timer_Tick( void )
 
 	// Increase button debounce count.
 	++gpio_btn_dbc;
+	// uart #2 update output delay.
+	++uart2_update_output_delay;
+
+	// Speed sampling timeout.
+	if( speed_sample_cnt )
+	{
+		// Increase count.
+		++speed_sample_to;
+		// Check timeout count.
+		if( speed_sample_to == 150 )
+		{
+			// About 1500ms past.
+			// Clear count.
+			speed_sample_to = 0;
+			speed_sample_cnt = 0;
+			speed_current_value = 0;
+		}
+	}
+
 
 	// UART #1 RX timeout check.
 	if( uart1_rx_cnt )

@@ -1,0 +1,2 @@
+Battery_Task.c:13:6:Battery_Check	16	static
+Battery_Task.c:41:6:Battery_Update_Output	16	static

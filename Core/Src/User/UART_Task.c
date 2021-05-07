@@ -9,6 +9,8 @@
 #include "UART_Task.h"
 #include "GPIO_Task.h"
 #include "Char_Convert.h"
+#include "Speed_Task.h"
+#include "Battery_Task.h"
 
 // UART #1 received data resolution task
 void UART1_Rec_Task( void )
@@ -22,7 +24,7 @@ void UART2_Rec_Task( void )
 	uint8_t temp;
 
 	// Check received count.
-	if( uart2_rx_cnt < 4 )
+	if( uart2_rx_cnt < 5 )
 	{
 		// Received data too few.
 		return;
@@ -31,26 +33,55 @@ void UART2_Rec_Task( void )
 	uart2_rx_cnt = 0;
 	// Resolution received data.
 	// Check end character #2.
-	if( uart2_rx_data[3] != 0x0a )
+	if( uart2_rx_data[4] != 0x0a )
 	{
 		// Not match.
 		return;
 	}
 	// Check end character #2.
-	if( uart2_rx_data[2] != 0x0d )
+	if( uart2_rx_data[3] != 0x0d )
 	{
 		// Not match.
 		return;
 	}
 
-	// Update DAC output.
-	// high quad.
-	temp = Char_to_Int( uart2_rx_data[0] );
-	temp <<= 4;
-	// low quad.
-	temp |= Char_to_Int( uart2_rx_data[1] );
-	// Write DAC data.
-	DAC1->DHR8R1 = temp;
+	// Check control code.
+	if( uart2_rx_data[0] == 0x61 ) // 'a'
+	{
+		// Update DAC output.
+		// high quad.
+		temp = Char_to_Int( uart2_rx_data[1] );
+		temp <<= 4;
+		// low quad.
+		temp |= Char_to_Int( uart2_rx_data[2] );
+		// Write DAC data.
+		DAC1->DHR8R1 = temp;
+	}
+	else if( uart2_rx_data[0] == 0x62 ) // 'b'
+	{
+		// Set flag, enable speed data update output.
+		speed_flag_enable = 0x01;
+		// Clear flag, disable battery update output.
+		battery_flag_enable = 0x00;
+		// Reset delay count.
+		uart2_update_output_delay = 0;
+	}
+	else if( uart2_rx_data[0] == 0x63 ) // 'c'
+	{
+		// Clear flag, disable update output speed data.
+		speed_flag_enable = 0x00;
+		// Set flag, enable battery update output.
+		battery_flag_enable = 0x01;
+		// Reset delay count.
+		uart2_update_output_delay= 0;
+	}
+	else
+	{
+		// Clear flag, disable update output speed data.
+		speed_flag_enable = 0x00;
+		// Clear flag, disable battery update output.
+		battery_flag_enable = 0x00;
+	}
 }
 
 // UART #3 received data resolution task
@@ -131,10 +162,10 @@ void UART2_Trn_Task( void )
 		return;
 	}
 	// Data output via UART.
-	USART2->TDR = uart2_tx_data[ uart2_tx_index ];
+	USART2->TDR = *ptr_uart2_tx_data;
 	// For next byte data.
 	--uart2_tx_cnt;
-	++uart2_tx_index;
+	++ptr_uart2_tx_data;
 }
 
 // UART #3 data transmit task.

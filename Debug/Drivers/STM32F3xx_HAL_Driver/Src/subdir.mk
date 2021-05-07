@@ -6,6 +6,8 @@
 # Add inputs and outputs from these tool invocations to the build variables 
 C_SRCS += \
 ../Drivers/STM32F3xx_HAL_Driver/Src/stm32f3xx_hal.c \
+../Drivers/STM32F3xx_HAL_Driver/Src/stm32f3xx_hal_adc.c \
+../Drivers/STM32F3xx_HAL_Driver/Src/stm32f3xx_hal_adc_ex.c \
 ../Drivers/STM32F3xx_HAL_Driver/Src/stm32f3xx_hal_can.c \
 ../Drivers/STM32F3xx_HAL_Driver/Src/stm32f3xx_hal_cortex.c \
 ../Drivers/STM32F3xx_HAL_Driver/Src/stm32f3xx_hal_dac.c \
@@ -28,6 +30,8 @@ C_SRCS += \
 
 OBJS += \
 ./Drivers/STM32F3xx_HAL_Driver/Src/stm32f3xx_hal.o \
+./Drivers/STM32F3xx_HAL_Driver/Src/stm32f3xx_hal_adc.o \
+./Drivers/STM32F3xx_HAL_Driver/Src/stm32f3xx_hal_adc_ex.o \
 ./Drivers/STM32F3xx_HAL_Driver/Src/stm32f3xx_hal_can.o \
 ./Drivers/STM32F3xx_HAL_Driver/Src/stm32f3xx_hal_cortex.o \
 ./Drivers/STM32F3xx_HAL_Driver/Src/stm32f3xx_hal_dac.o \
@@ -50,6 +54,8 @@ OBJS += \
 
 C_DEPS += \
 ./Drivers/STM32F3xx_HAL_Driver/Src/stm32f3xx_hal.d \
+./Drivers/STM32F3xx_HAL_Driver/Src/stm32f3xx_hal_adc.d \
+./Drivers/STM32F3xx_HAL_Driver/Src/stm32f3xx_hal_adc_ex.d \
 ./Drivers/STM32F3xx_HAL_Driver/Src/stm32f3xx_hal_can.d \
 ./Drivers/STM32F3xx_HAL_Driver/Src/stm32f3xx_hal_cortex.d \
 ./Drivers/STM32F3xx_HAL_Driver/Src/stm32f3xx_hal_dac.d \
@@ -74,6 +80,10 @@ C_DEPS += \
 # Each subdirectory must supply rules for building sources it contributes
 Drivers/STM32F3xx_HAL_Driver/Src/stm32f3xx_hal.o: ../Drivers/STM32F3xx_HAL_Driver/Src/stm32f3xx_hal.c Drivers/STM32F3xx_HAL_Driver/Src/subdir.mk
 	arm-none-eabi-gcc "$<" -mcpu=cortex-m4 -std=gnu11 -g3 -DDEBUG -DUSE_HAL_DRIVER -DSTM32F302x8 -c -I../Core/Inc -I../Core/Inc/User -I../Drivers/STM32F3xx_HAL_Driver/Inc -I../Drivers/STM32F3xx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32F3xx/Include -I../Drivers/CMSIS/Include -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -MMD -MP -MF"Drivers/STM32F3xx_HAL_Driver/Src/stm32f3xx_hal.d" -MT"$@" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "$@"
+Drivers/STM32F3xx_HAL_Driver/Src/stm32f3xx_hal_adc.o: ../Drivers/STM32F3xx_HAL_Driver/Src/stm32f3xx_hal_adc.c Drivers/STM32F3xx_HAL_Driver/Src/subdir.mk
+	arm-none-eabi-gcc "$<" -mcpu=cortex-m4 -std=gnu11 -g3 -DDEBUG -DUSE_HAL_DRIVER -DSTM32F302x8 -c -I../Core/Inc -I../Core/Inc/User -I../Drivers/STM32F3xx_HAL_Driver/Inc -I../Drivers/STM32F3xx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32F3xx/Include -I../Drivers/CMSIS/Include -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -MMD -MP -MF"Drivers/STM32F3xx_HAL_Driver/Src/stm32f3xx_hal_adc.d" -MT"$@" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "$@"
+Drivers/STM32F3xx_HAL_Driver/Src/stm32f3xx_hal_adc_ex.o: ../Drivers/STM32F3xx_HAL_Driver/Src/stm32f3xx_hal_adc_ex.c Drivers/STM32F3xx_HAL_Driver/Src/subdir.mk
+	arm-none-eabi-gcc "$<" -mcpu=cortex-m4 -std=gnu11 -g3 -DDEBUG -DUSE_HAL_DRIVER -DSTM32F302x8 -c -I../Core/Inc -I../Core/Inc/User -I../Drivers/STM32F3xx_HAL_Driver/Inc -I../Drivers/STM32F3xx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32F3xx/Include -I../Drivers/CMSIS/Include -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -MMD -MP -MF"Drivers/STM32F3xx_HAL_Driver/Src/stm32f3xx_hal_adc_ex.d" -MT"$@" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "$@"
 Drivers/STM32F3xx_HAL_Driver/Src/stm32f3xx_hal_can.o: ../Drivers/STM32F3xx_HAL_Driver/Src/stm32f3xx_hal_can.c Drivers/STM32F3xx_HAL_Driver/Src/subdir.mk
 	arm-none-eabi-gcc "$<" -mcpu=cortex-m4 -std=gnu11 -g3 -DDEBUG -DUSE_HAL_DRIVER -DSTM32F302x8 -c -I../Core/Inc -I../Core/Inc/User -I../Drivers/STM32F3xx_HAL_Driver/Inc -I../Drivers/STM32F3xx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32F3xx/Include -I../Drivers/CMSIS/Include -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -MMD -MP -MF"Drivers/STM32F3xx_HAL_Driver/Src/stm32f3xx_hal_can.d" -MT"$@" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "$@"
 Drivers/STM32F3xx_HAL_Driver/Src/stm32f3xx_hal_cortex.o: ../Drivers/STM32F3xx_HAL_Driver/Src/stm32f3xx_hal_cortex.c Drivers/STM32F3xx_HAL_Driver/Src/subdir.mk

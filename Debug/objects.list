@@ -1,3 +1,4 @@
+"Core/Src/User/Battery_Task.o"
 "Core/Src/User/Buzzer_Task.o"
 "Core/Src/User/Char_Convert.o"
 "Core/Src/User/GPIO_Task.o"
@@ -12,6 +13,8 @@
 "Core/Src/system_stm32f3xx.o"
 "Core/Startup/startup_stm32f302r8tx.o"
 "Drivers/STM32F3xx_HAL_Driver/Src/stm32f3xx_hal.o"
+"Drivers/STM32F3xx_HAL_Driver/Src/stm32f3xx_hal_adc.o"
+"Drivers/STM32F3xx_HAL_Driver/Src/stm32f3xx_hal_adc_ex.o"
 "Drivers/STM32F3xx_HAL_Driver/Src/stm32f3xx_hal_can.o"
 "Drivers/STM32F3xx_HAL_Driver/Src/stm32f3xx_hal_cortex.o"
 "Drivers/STM32F3xx_HAL_Driver/Src/stm32f3xx_hal_dac.o"

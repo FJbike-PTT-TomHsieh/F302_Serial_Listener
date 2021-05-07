@@ -1,3 +1,4 @@
 core_cm4.h:1688:22:__NVIC_EnableIRQ	16	static
-Speed_Task.c:12:6:Speed_Init	8	static
-Speed_Task.c:48:6:Speed_Calculate	4	static
+Speed_Task.c:13:6:Speed_Init	8	static
+Speed_Task.c:49:6:Speed_Calculate	24	static
+Speed_Task.c:127:6:Speed_Update_Output	16	static

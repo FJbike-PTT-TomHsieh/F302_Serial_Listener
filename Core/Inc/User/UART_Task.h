@@ -58,6 +58,12 @@ volatile uint8_t uart2_tx_data[ FJBSCT_UART2_REC_MAX + 1 ];
 // UART #3 transmit data.
 volatile uint8_t uart3_tx_data[ FJBSCT_UART3_REC_MAX + 1 ];
 
+//
+volatile uint8_t *ptr_uart2_tx_data;
+
+//
+volatile uint32_t uart2_update_output_delay;
+
 
 // UART #1 received data resolution task
 void UART1_Rec_Task( void );

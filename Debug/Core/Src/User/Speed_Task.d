@@ -18,6 +18,8 @@ Core/Src/User/Speed_Task.o: ../Core/Src/User/Speed_Task.c \
  ../Drivers/STM32F3xx_HAL_Driver/Inc/stm32f3xx_hal_dma.h \
  ../Drivers/STM32F3xx_HAL_Driver/Inc/stm32f3xx_hal_dma_ex.h \
  ../Drivers/STM32F3xx_HAL_Driver/Inc/stm32f3xx_hal_cortex.h \
+ ../Drivers/STM32F3xx_HAL_Driver/Inc/stm32f3xx_hal_adc.h \
+ ../Drivers/STM32F3xx_HAL_Driver/Inc/stm32f3xx_hal_adc_ex.h \
  ../Drivers/STM32F3xx_HAL_Driver/Inc/stm32f3xx_hal_can.h \
  ../Drivers/STM32F3xx_HAL_Driver/Inc/stm32f3xx_hal_dac.h \
  ../Drivers/STM32F3xx_HAL_Driver/Inc/stm32f3xx_hal_dac_ex.h \
@@ -29,7 +31,7 @@ Core/Src/User/Speed_Task.o: ../Core/Src/User/Speed_Task.c \
  ../Drivers/STM32F3xx_HAL_Driver/Inc/stm32f3xx_hal_pwr_ex.h \
  ../Drivers/STM32F3xx_HAL_Driver/Inc/stm32f3xx_hal_uart.h \
  ../Drivers/STM32F3xx_HAL_Driver/Inc/stm32f3xx_hal_uart_ex.h \
- ../Core/Inc/User/Speed_Task.h
+ ../Core/Inc/User/Speed_Task.h ../Core/Inc/User/UART_Task.h
 
 ../Drivers/CMSIS/Device/ST/STM32F3xx/Include/stm32f3xx.h:
 
@@ -69,6 +71,10 @@ Core/Src/User/Speed_Task.o: ../Core/Src/User/Speed_Task.c \
 
 ../Drivers/STM32F3xx_HAL_Driver/Inc/stm32f3xx_hal_cortex.h:
 
+../Drivers/STM32F3xx_HAL_Driver/Inc/stm32f3xx_hal_adc.h:
+
+../Drivers/STM32F3xx_HAL_Driver/Inc/stm32f3xx_hal_adc_ex.h:
+
 ../Drivers/STM32F3xx_HAL_Driver/Inc/stm32f3xx_hal_can.h:
 
 ../Drivers/STM32F3xx_HAL_Driver/Inc/stm32f3xx_hal_dac.h:
@@ -92,3 +98,5 @@ Core/Src/User/Speed_Task.o: ../Core/Src/User/Speed_Task.c \
 ../Drivers/STM32F3xx_HAL_Driver/Inc/stm32f3xx_hal_uart_ex.h:
 
 ../Core/Inc/User/Speed_Task.h:
+
+../Core/Inc/User/UART_Task.h:

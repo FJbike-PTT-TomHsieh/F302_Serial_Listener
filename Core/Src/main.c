@@ -29,6 +29,7 @@
 #include "UART_Task.h"
 #include "Buzzer_Task.h"
 #include "Speed_Task.h"
+#include "Battery_Task.h"
 
 /* USER CODE END Includes */
 
@@ -47,6 +48,8 @@
 /* USER CODE END PM */
 
 /* Private variables ---------------------------------------------------------*/
+ADC_HandleTypeDef hadc1;
+
 CAN_HandleTypeDef hcan;
 
 DAC_HandleTypeDef hdac;
@@ -67,6 +70,7 @@ static void MX_USART1_UART_Init(void);
 static void MX_USART3_UART_Init(void);
 static void MX_CAN_Init(void);
 static void MX_DAC_Init(void);
+static void MX_ADC1_Init(void);
 /* USER CODE BEGIN PFP */
 
 /* USER CODE END PFP */
@@ -109,6 +113,7 @@ int main(void)
   MX_USART3_UART_Init();
   MX_CAN_Init();
   MX_DAC_Init();
+  MX_ADC1_Init();
   /* USER CODE BEGIN 2 */
 
   Speed_Init();
@@ -150,10 +155,12 @@ int main(void)
 	  // Timer tick, loop task.
 	  Timer_Tick();
 
-	  // UART #1 transmit test.
-	  UART1_Trn_Task();
-	  // UART #3 transmit test.
-	  UART3_Trn_Task();
+	  // UART #1 transmit task.
+	  //UART1_Trn_Task();
+	  // UART #3 transmit task.
+	  //UART3_Trn_Task();
+	  // UART #2 transmit task.
+	  UART2_Trn_Task();
 
 	  // UART #2 received task.
 	  UART2_Rec_Task();
@@ -161,8 +168,15 @@ int main(void)
 	  // Button task.
 	  GPIO_Btn_Task();
 
-	  //
+	  // speed value update.
 	  Speed_Calculate();
+	  // speed update output.
+	  Speed_Update_Output();
+
+	  //
+	  Battery_Check();
+	  //
+	  Battery_Update_Output();
 
   }
   /* USER CODE END 3 */
@@ -205,12 +219,83 @@ void SystemClock_Config(void)
   {
     Error_Handler();
   }
-  PeriphClkInit.PeriphClockSelection = RCC_PERIPHCLK_USART1;
+  PeriphClkInit.PeriphClockSelection = RCC_PERIPHCLK_USART1|RCC_PERIPHCLK_ADC1;
   PeriphClkInit.Usart1ClockSelection = RCC_USART1CLKSOURCE_PCLK1;
+  PeriphClkInit.Adc1ClockSelection = RCC_ADC1PLLCLK_DIV1;
+
   if (HAL_RCCEx_PeriphCLKConfig(&PeriphClkInit) != HAL_OK)
   {
     Error_Handler();
   }
+}
+
+/**
+  * @brief ADC1 Initialization Function
+  * @param None
+  * @retval None
+  */
+static void MX_ADC1_Init(void)
+{
+
+  /* USER CODE BEGIN ADC1_Init 0 */
+
+  /* USER CODE END ADC1_Init 0 */
+
+  ADC_ChannelConfTypeDef sConfig = {0};
+
+  /* USER CODE BEGIN ADC1_Init 1 */
+
+  // Peripheral clock enable.
+  __HAL_RCC_ADC1_CLK_ENABLE();
+
+  /* USER CODE END ADC1_Init 1 */
+  /** Common config
+  */
+  hadc1.Instance = ADC1;
+  hadc1.Init.ClockPrescaler = ADC_CLOCK_ASYNC_DIV1;
+  hadc1.Init.Resolution = ADC_RESOLUTION_12B;
+  hadc1.Init.ScanConvMode = ADC_SCAN_ENABLE;
+  hadc1.Init.ContinuousConvMode = DISABLE;
+  hadc1.Init.DiscontinuousConvMode = DISABLE;
+  hadc1.Init.ExternalTrigConvEdge = ADC_EXTERNALTRIGCONVEDGE_NONE;
+  hadc1.Init.ExternalTrigConv = ADC_SOFTWARE_START;
+  hadc1.Init.DataAlign = ADC_DATAALIGN_RIGHT;
+  hadc1.Init.NbrOfConversion = 2;
+  hadc1.Init.DMAContinuousRequests = DISABLE;
+  hadc1.Init.EOCSelection = ADC_EOC_SINGLE_CONV;
+  hadc1.Init.LowPowerAutoWait = DISABLE;
+  hadc1.Init.Overrun = ADC_OVR_DATA_OVERWRITTEN;
+  if (HAL_ADC_Init(&hadc1) != HAL_OK)
+  {
+    Error_Handler();
+  }
+  /** Configure Regular Channel
+  */
+  sConfig.Channel = ADC_CHANNEL_6;
+  sConfig.Rank = ADC_REGULAR_RANK_1;
+  sConfig.SingleDiff = ADC_SINGLE_ENDED;
+  sConfig.SamplingTime = ADC_SAMPLETIME_1CYCLE_5;
+  sConfig.OffsetNumber = ADC_OFFSET_NONE;
+  sConfig.Offset = 0;
+  if (HAL_ADC_ConfigChannel(&hadc1, &sConfig) != HAL_OK)
+  {
+    Error_Handler();
+  }
+  /** Configure Regular Channel
+  */
+  sConfig.Channel = ADC_CHANNEL_7;
+  sConfig.Rank = ADC_REGULAR_RANK_2;
+  if (HAL_ADC_ConfigChannel(&hadc1, &sConfig) != HAL_OK)
+  {
+    Error_Handler();
+  }
+  /* USER CODE BEGIN ADC1_Init 2 */
+
+  // Enable.
+  ADC1->CR |= 0x00000001;
+
+  /* USER CODE END ADC1_Init 2 */
+
 }
 
 /**
